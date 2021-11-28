@@ -54,10 +54,10 @@ class Cryptography(Resource):
         # BEGIN::Checker function
         def checker(raw_text, key, option, type):
             if type == 'decrypt':
-                processed_text = decryptor(raw_text,option)
+                processed_text = decryptor(raw_text, key, option)
                 return processed_text
             elif type == 'encrypt':
-                processed_text = encryptor(raw_text, option)
+                processed_text = encryptor(raw_text, key, option)
                 return processed_text
             else:
                 return 'Hanya dapat melakukan enkripsi dan dekripsi'

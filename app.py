@@ -2,6 +2,7 @@ from flask import Flask, request
 from flask.wrappers import Response
 from flask_restful import Resource, Api
 from flask_cors import CORS
+from CryptoHelper import decryptingFile, decryptingText, encryptingText
 
 app = Flask(__name__)
 
@@ -12,7 +13,9 @@ CORS(app)
 class Cryptography(Resource):
     def get(self):
         option = ['modifikasi']
-        response = {"msg": option}
+        cipher = encryptingText("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", 'babang')
+        plain = decryptingText(cipher, "babang")
+        response = {"msg": plain}
         return response
     
     def post(self):

@@ -47,7 +47,7 @@ def joinBlockedList(target_list):
 
 
 def getBlockSize(plain_text):
-    for i in range(len(plain_text)):
+    for i in range(len(plain_text) + 1):
         if i != 0 and i != 1:
             if len(plain_text) % i == 0:
                 return i

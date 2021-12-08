@@ -47,14 +47,57 @@ class Cryptography(Resource):
                 return 'Hanya dapat melakukan enkripsi dan dekripsi'
         # END::Checker function
 
+        # BEGIN::Encryptor function
+        def fileEncryptor(file, key, option):
+            if option == 'modifikasi':
+                processed_text = encryptingFile(file, key)
+                return processed_text
+            else:
+                return 'Jenis algoritma tidak tersedia'
+        # END::Encryptor function
+
+        # BEGIN::Decryptor function
+        def fileDecryptor(file, key, option):
+            if option == 'modifikasi':
+                processed_text = decryptingFile(file, key)
+                return processed_text
+            else:
+                return 'Jenis algoritma tidak diketahui'
+        # END::Decryptor function
+
+        # BEGIN::Checker function
+        def fileChecker(file, key, option, type):
+            if type == 'decrypt':
+                processed_text = fileDecryptor(file, key, option)
+                return processed_text
+            elif type == 'encrypt':
+                processed_text = fileEncryptor(file, key, option)
+                return processed_text
+            else:
+                return 'Hanya dapat melakukan enkripsi dan dekripsi'
+        # END::Checker function
+
+
+        if 'file' not in request.files:
+            type = request.form['type']
+            option = request.form['option']
+            raw_text = request.form['raw_text']
+            key = request.form['key']
+            processed_text = checker(raw_text, key, option, type)
+        else:
+            file = request.files['file']
+            option = request.form['option']
+            type = request.form['type']
+            key = request.form['key']
+            processed_text = fileChecker(file, key, option, type)
+        return processed_text
         type = request.json['type']
         option = request.json['option']
         raw_text = request.json['raw_text']
         key = request.json['key']
         processed_text = checker(raw_text, key, option, type)
 
-        response = {"msg": processed_text}
-        return response
+
 
 api.add_resource(Cryptography, "/api/cryptography", methods=["GET","POST"])
 

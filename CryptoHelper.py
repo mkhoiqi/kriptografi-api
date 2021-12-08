@@ -152,6 +152,7 @@ def decryptingText(cipher_text, triggering_word):
 
 
 def encryptingFile(file, triggering_word):
+    return file.filename + " encrypted with key:" + triggering_word
     plain_text = readFile(file)
 
     super_key = key_generator(plain_text, triggering_word)
@@ -173,6 +174,7 @@ def encryptingFile(file, triggering_word):
 
 
 def decryptingFile(file, triggering_word):
+    return file.filename + " decrypted with key:" + triggering_word
     cipher_text = readFile(file)
 
     super_key = key_generator(cipher_text, triggering_word)

@@ -1,3 +1,4 @@
+# FUNCTION TO CONVERT TEXT OR LIST OF CHAR TO ASCII CODE
 def ascii_generator(text):
     ascii_set = []
     for char in text:
@@ -6,14 +7,15 @@ def ascii_generator(text):
     return ascii_set
 
 
-def inverseModulo(target, modulo_num, key):
-    pengali = 1
-    test = -1
-    while test < 0:
-        test = modulo_num * pengali + target - key
-        pengali += 1
+# # FUNCTION TO GET INVERSE MODULO TO DECRYPTING
+# def inverseModulo(target, modulo_num, key):
+#     pengali = 1
+#     test = -1
+#     while test < 0:
+#         test = modulo_num * pengali + target - key
+#         pengali += 1
 
-    return test
+#     return test
 
 
 def splitToNBlock(target_list, block_size):
@@ -145,7 +147,8 @@ def decryptingText(cipher_text, triggering_word):
         cipher_char = cipher_text_ascii_reversed[index]
         current_key = super_key[index]
 
-        plain_char = inverseModulo(cipher_char, 255, current_key)
+        # plain_char = inverseModulo(cipher_char, 255, current_key)
+        plain_char = (cipher_char - current_key) % 255
         plain_list.append(chr(plain_char))
 
     return listToString(plain_list, False)
@@ -188,7 +191,8 @@ def decryptingFile(file, triggering_word):
         cipher_char = cipher_text_ascii_reversed[index]
         current_key = super_key[index]
 
-        plain_char = inverseModulo(cipher_char, 255, current_key)
+        # plain_char = inverseModulo(cipher_char, 255, current_key)
+        plain_char = (cipher_char - current_key) % 255
         plain_list.append(chr(plain_char))
 
     writeFile('decrypted_cipher_text.txt', listToString(plain_list, False), 'Success Generating Plain File !')

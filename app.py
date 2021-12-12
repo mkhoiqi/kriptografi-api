@@ -3,6 +3,7 @@ from flask.wrappers import Response
 from flask_restful import Resource, Api
 from flask_cors import CORS
 from CryptoHelper import decryptingFile, decryptingText, encryptingText, encryptingFile
+import os
 
 app = Flask(__name__)
 
@@ -86,10 +87,12 @@ class Cryptography(Resource):
             processed_text = checker(raw_text, key, option, type)
         else:
             file = request.files['file']
+            file.save(os.path.join('uploaded_file/raw', file.filename))
             option = request.form['option']
             type = request.form['type']
             key = request.form['key']
             processed_text = fileChecker(file, key, option, type)
+
         return processed_text
         type = request.json['type']
         option = request.json['option']

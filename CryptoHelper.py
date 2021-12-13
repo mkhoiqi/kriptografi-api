@@ -1,4 +1,3 @@
-import random
 # FUNCTION TO CONVERT TEXT OR LIST OF CHAR TO ASCII CODE
 def ascii_generator(text):
     ascii_set = []
@@ -156,7 +155,7 @@ def decryptingText(cipher_text, triggering_word):
 
 
 def encryptingFile(file, triggering_word):
-    plain_text = readFile('uploaded_file/raw/'+file.filename)
+    plain_text = readFile(file)
 
     super_key = key_generator(plain_text, triggering_word)
     plain_text_ascii = ascii_generator(plain_text)
@@ -173,13 +172,11 @@ def encryptingFile(file, triggering_word):
     cipher_list_reversed = sequenceReverseProcessing(cipher_list_unreversed, getBlockSize(plain_text))
     cipher_text_final = listToString(cipher_list_reversed, True)
     
-    n = random.randint(100000000,999999999)
-    writeFile('uploaded_file/processed/'+str(n)+"_"+file.filename, cipher_text_final, 'Success Generating Cipher File !')
-    return cipher_text_final
+    writeFile('cipher_text.txt', cipher_text_final, 'Success Generating Cipher File !')
 
 
 def decryptingFile(file, triggering_word):
-    cipher_text = readFile('uploaded_file/raw/'+file.filename)
+    cipher_text = readFile(file)
 
     super_key = key_generator(cipher_text, triggering_word)
     cipher_text_ascii = ascii_generator(cipher_text)
@@ -196,9 +193,6 @@ def decryptingFile(file, triggering_word):
         plain_char = (cipher_char - current_key) % 255
         plain_list.append(chr(plain_char))
 
-
-    n = random.randint(100000000,999999999)
-    writeFile('uploaded_file/processed/'+str(n)+"_"+file.filename, listToString(plain_list, False), 'Success Generating Plain File !')
-    return plain_list
+    writeFile('decrypted_cipher_text.txt', listToString(plain_list, False), 'Success Generating Plain File !')
 
 
